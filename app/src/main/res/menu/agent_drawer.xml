@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_store"
+            android:icon="@mipmap/agent_icon"
+            android:title="@string/storeManage"/>
+        <item
+            android:id="@+id/nav_coupon"
+            android:icon="@mipmap/order_icon"
+            android:title="@string/couponManage"/>
+    </group>
+
+    <item android:title="账号管理">
+        <menu>
+            <item
+                android:id="@+id/nav_changepass"
+                android:icon="@mipmap/password"
+                android:title="@string/changepass"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@mipmap/logout_icon"
+                android:title="@string/logout"/>
+            <item
+                android:id="@+id/nav_quit"
+                android:icon="@mipmap/quit_icon"
+                android:title="@string/quitApp"/>
+        </menu>
+    </item>
+
+</menu>

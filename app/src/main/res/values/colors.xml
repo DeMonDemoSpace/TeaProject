@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="greenDark">#02a55c</color>
+    <color name="greenAccent">#1afa29</color>
+    <color name="text">#3b3b3b</color>
+    <color name="background">#edeae5</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#e64b4b</color>
+    <color name="button_normal">#c8bca5</color>
+    <color name="button_press">#8b572a</color>
+</resources>

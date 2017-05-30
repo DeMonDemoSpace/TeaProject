@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="5dp"
+              android:background="@drawable/bg_div"
+              android:orientation="vertical">
+
+
+    <ImageView
+        android:padding="5dp"
+        android:id="@+id/iv_thumb"
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@mipmap/loading"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/small_text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_move"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="@string/move"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bt_del"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

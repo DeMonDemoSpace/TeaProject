@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@mipmap/order_icon"
+            android:title="@string/orderManage"/>
+        <item
+            android:id="@+id/nav_approve"
+            android:icon="@mipmap/approve"
+            android:title="@string/approveManage"/>
+    </group>
+    <item android:title="信息管理">
+        <menu>
+            <item
+                android:id="@+id/nav_editInfo"
+                android:icon="@mipmap/edit"
+                android:title="@string/editinfo"/>
+            <item
+                android:id="@+id/nav_address"
+                android:icon="@mipmap/address"
+                android:title="@string/goodaddress"/>
+        </menu>
+    </item>
+    <item android:title="账号管理">
+        <menu>
+            <item
+                android:id="@+id/nav_changepass"
+                android:icon="@mipmap/password"
+                android:title="@string/changepass"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@mipmap/logout_icon"
+                android:title="@string/logout"/>
+            <item
+                android:id="@+id/nav_quit"
+                android:icon="@mipmap/quit_icon"
+                android:title="@string/quitApp"/>
+        </menu>
+    </item>
+
+</menu>

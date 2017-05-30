@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/background"
+              android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_div"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户"
+            android:textSize="@dimen/normal_text"/>
+
+        <TextView
+            android:id="@+id/tv_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15626413662"
+            android:textSize="@dimen/normal_text"/>
+
+        <TextView
+            android:id="@+id/tv_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15626413662"
+            android:textSize="@dimen/normal_text"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/delete"/>
+
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="tea.demon.com.teaproject">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/tea_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/tea_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".Admin.AdminActivity"/>
+        <activity android:name=".User.UserActivity"/>
+        <activity android:name=".Agent.AgentActivity"/>
+        <activity android:name=".Admin.UserInfoActivity"/>
+        <activity android:name=".Admin.UserListActivity"/>
+        <activity android:name=".Admin.AgentListActivity">
+        </activity>
+        <activity android:name=".Admin.ChangeCheckActivity">
+        </activity>
+        <activity android:name=".Admin.AgentStoreActivity">
+        </activity>
+        <activity android:name=".Admin.TeaListActivity">
+        </activity>
+        <activity android:name=".Admin.CreateTeaActivity">
+        </activity>
+        <activity android:name=".Admin.TeaInfoActivity">
+        </activity>
+        <activity android:name=".Admin.EditTeaActivity">
+        </activity>
+        <activity android:name=".User.EditUserInfoActivity">
+        </activity>
+        <activity android:name=".User.AddressActivity">
+        </activity>
+        <activity android:name=".User.ApproveActivity">
+        </activity>
+        <activity android:name=".User.EditApproveActivity">
+        </activity>
+        <activity android:name=".activity.PutPassWordActivity"/>
+        <activity android:name=".User.GoodsActivity">
+        </activity>
+        <activity android:name=".User.GoodsInfoActivity">
+        </activity>
+        <activity android:name=".Agent.CreateStoreActivity">
+        </activity>
+        <activity android:name=".Agent.AgentGoodActivity"/>
+        <activity android:name=".Agent.CouponActivity">
+        </activity>
+        <activity android:name=".Agent.EditStoreActivity">
+        </activity>
+        <activity android:name=".User.ShoppingCarActivity">
+        </activity>
+        <activity android:name=".User.OrderLsitActivity">
+        </activity>
+        <activity android:name=".User.OrderListActivity"/>
+        <activity android:name=".User.OrderInfoActivity">
+        </activity>
+    </application>
+
+</manifest>
