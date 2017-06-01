@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +31,14 @@ public class TeaListActivity extends AppCompatActivity implements IView {
     RecyclerView recycleView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.swipe_container)
+    SwipeRefreshLayout swipeRefreshLayout;
     private int classId;
     public static List<Tea> list;
     public static Handler handler;
     private TeaListAdapter adapter;
     private Map<String, String> movemap;
+    private List<Tea> new_List = new ArrayList<>();//刷新后的数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,22 @@ public class TeaListActivity extends AppCompatActivity implements IView {
     private void initView() {
         StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recycleView.setLayoutManager(sgm);
+
+        //设置刷新时动画的颜色，可以设置4个
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
+                android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 500);
+            }
+        });
     }
 
 
@@ -144,5 +165,44 @@ public class TeaListActivity extends AppCompatActivity implements IView {
                     presenter.putTeaClass(movemap);
             }
         }
+    }
+
+    Handler handlers = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
+                //通知数据改变，更新listview
+                list = (List<Tea>) msg.obj;
+                adapter.notifyDataSetChanged();
+            } else if (msg.what == 0x110) {
+                if (new_List != null) {
+                    // 创建一个Adapter设置ListView中的每项Item项数据
+                    adapter = new TeaListAdapter(TeaListActivity.this, new_List);
+                    recycleView.setAdapter(adapter);
+                } else {
+                    adapter = new TeaListAdapter(TeaListActivity.this, null);
+                    recycleView.setAdapter(adapter);
+                }
+            }
+        }
+    };
+
+    public void refresh() {
+        list.clear();
+        adapter.notifyDataSetChanged();
+        final Map<String, String> map = new HashMap<>();
+        map.put(Constant.CLASS_ID, classId + "");
+        TeaPresenter presenter = new TeaPresenter(this, new IView() {
+            @Override
+            public void getData(int code, Object object) {
+                new_List = (List<Tea>) object;
+                handlers.sendEmptyMessage(0x110);//先发消息创建新的adapter
+                Message msg = new Message();
+                msg.what = 0x111;
+                msg.obj = new_List;
+                handlers.sendMessage(msg);//后发消息更新listview
+            }
+        });
+        presenter.getTeaByClass(map);
+
     }
 }

@@ -2,6 +2,8 @@ package tea.demon.com.teaproject.Admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,6 +37,7 @@ public class TeaInfoActivity extends AppCompatActivity {
     FloatingActionButton upFab;
     private Tea tea;
     public static TeaInfoActivity activity;
+    public static Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,16 @@ public class TeaInfoActivity extends AppCompatActivity {
         tea = (Tea) getIntent().getSerializableExtra(Constant.TEA);
         TitleUtil.setToolBar(this, tea.getName());
         initView();
+        initHandler();
+    }
+
+    private void initHandler() {
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                upFab.setVisibility(View.GONE);
+            }
+        };
     }
 
     private void initView() {
@@ -53,6 +66,9 @@ public class TeaInfoActivity extends AppCompatActivity {
         etStock.setText(tea.getStock() + "");
         etSoldAmount.setText(tea.getSold_amount() + "");
         etDescription.setText(tea.getDescription());
+        if (tea.getStore_id() != 0) {
+            upFab.setVisibility(View.GONE);
+        }
 
     }
 

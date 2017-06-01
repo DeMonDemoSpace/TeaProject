@@ -64,6 +64,7 @@ public class AgentStoreActivity extends AppCompatActivity implements IView {
                     initView();
                 } else if (msg.what == 0x111) {
                     ToastUtil.ShowToast(AgentStoreActivity.this, "上架成功！");
+                    TeaInfoActivity.handler.sendEmptyMessage(0x001);
                     AgentListActivity.activity.finish();
                     finish();
                 }
@@ -77,6 +78,7 @@ public class AgentStoreActivity extends AppCompatActivity implements IView {
             etAddress.setText(getString(R.string.noInfo));
             etPhone.setText(getString(R.string.noInfo));
             etDescription.setText(getString(R.string.noInfo));
+            bnSure.setVisibility(View.GONE);
         } else {
             Store store = list.get(0);
             etName.setText(store.getName());

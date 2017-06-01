@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -20,8 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tea.demon.com.teaproject.R;
 import tea.demon.com.teaproject.data.Constant;
+import tea.demon.com.teaproject.data.Coupon;
 import tea.demon.com.teaproject.data.Tea;
 import tea.demon.com.teaproject.presenter.AgentPresenter;
+import tea.demon.com.teaproject.presenter.UserPresenter;
 import tea.demon.com.teaproject.util.Dialogutil;
 import tea.demon.com.teaproject.util.GlideUtils;
 import tea.demon.com.teaproject.util.TitleUtil;
@@ -44,8 +47,12 @@ public class AgentGoodActivity extends AppCompatActivity implements IView {
     @BindView(R.id.coupon_fab)
     FloatingActionButton couponFab;
     int type = 0;
+    @BindView(R.id.et_coupon)
+    EditText etCoupon;
     private Tea tea;
     private Handler handler;
+    private List<Coupon> list;
+    private String coupon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +70,24 @@ public class AgentGoodActivity extends AppCompatActivity implements IView {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 0x001) {
+                    couponFab.setVisibility(View.GONE);
+                    etCoupon.setText(coupon);
                     ToastUtil.ShowToast(AgentGoodActivity.this, "添加优惠券成功！");
+                } else if (msg.what == 0x002) {
+                    if (list.size() > 0) {
+                        couponFab.setVisibility(View.GONE);
+                        Coupon coupon = list.get(0);
+                        if (coupon.getType() == 1) {
+                            double dis = Double.parseDouble(coupon.getDiscount()) * 10;
+                            String coupon_text = coupon.getName() + ":" + dis + "折";
+                            etCoupon.setText(coupon_text);
+                        } else {
+                            String coupon_text = coupon.getName() + ":" + coupon.getGift();
+                            etCoupon.setText(coupon_text);
+                        }
+                    } else {
+                        etCoupon.setText(getString(R.string.nowno));
+                    }
                 }
             }
         };
@@ -75,6 +99,16 @@ public class AgentGoodActivity extends AppCompatActivity implements IView {
         etStock.setText(tea.getStock() + "");
         etSoldAmount.setText(tea.getSold_amount() + "");
         etDescription.setText(tea.getDescription());
+        Map<String, String> map = new HashMap<>();
+        map.put(Constant.GOODS_ID, tea.getGoods_id() + "");
+        UserPresenter presenter = new UserPresenter(this, new IView() {
+            @Override
+            public void getData(int code, Object object) {
+                list = (List<Coupon>) object;
+                handler.sendEmptyMessage(0x002);
+            }
+        });
+        presenter.getGoodCoupon(map);
 
     }
 
@@ -126,6 +160,8 @@ public class AgentGoodActivity extends AppCompatActivity implements IView {
                         map.put(Constant.NAME, name);
                         map.put(Constant.DISCOUNT, discount);
                     }
+                    double dis = Double.parseDouble(discount) * 10;
+                    coupon = name + ":" + dis + "折";
                 } else {
                     if (TextUtils.isEmpty(name) || TextUtils.isEmpty(gift)) {
                         ToastUtil.ShowToast(AgentGoodActivity.this, getString(R.string.needInfo));
@@ -133,7 +169,9 @@ public class AgentGoodActivity extends AppCompatActivity implements IView {
                         map.put(Constant.NAME, name);
                         map.put(Constant.GIFT, gift);
                     }
+                    coupon = name + ":" + gift;
                 }
+
                 map.put(Constant.TYPE, type + "");
                 AgentPresenter presenter = new AgentPresenter(AgentGoodActivity.this, AgentGoodActivity.this);
                 presenter.postCoupon(map);
